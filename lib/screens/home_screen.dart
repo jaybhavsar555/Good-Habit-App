@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../utils/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,11 +15,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Styles.bgColor,
-      body: Center(
-        child: Container(
-          child: const Text("Home Screen"),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text("Crud op of habits will be shown"),
+              ],
+            ),
+            Gap(40),
+            Text("List of Habits"),
+            Container(
+
+            )
+          ],
         ),
-      ),
+      )
     );
   }
 }

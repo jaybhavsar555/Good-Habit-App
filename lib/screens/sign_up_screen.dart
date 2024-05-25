@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
-import 'package:good_habit_app/screens/home_screen.dart';
+import 'package:good_habit_app/screens/bottom_bar.dart';
 import 'package:good_habit_app/screens/sign_in_screen.dart';
 
 import '../utils/app_styles.dart';
@@ -192,7 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         {
           Fluttertoast.showToast(msg: "Login Successful"),
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomeScreen())),
+              MaterialPageRoute(builder: (context) =>  BottomNavBar())),
         });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
