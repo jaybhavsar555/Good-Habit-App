@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "235908486305",
+    "project_id": "goodhabitapp-7f20e",
+    "storage_bucket": "goodhabitapp-7f20e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235908486305:android:6651074b443205c8b9cce0",
+        "android_client_info": {
+          "package_name": "com.example.good_habit_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdZNNGzwlXIADSZ9gguUb-7JW0GLnQKf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
