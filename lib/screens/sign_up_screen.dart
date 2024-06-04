@@ -16,7 +16,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   final _formKey = GlobalKey<FormState>();
 
   //editTeext controller
@@ -27,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _auth = FirebaseAuth.instance;
   String? errorMessage;
   String? value;
+
   @override
   Widget build(BuildContext context) {
     //text email field
@@ -40,8 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           return ("Please Enter Your Email");
         }
         // reg expression for email validation
-        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-            .hasMatch(value)) {
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
           return ("Please Enter a valid email");
         }
         return null;
@@ -61,7 +60,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
-
 
     //password text field
     final TextFormField passwordfield = TextFormField(
@@ -95,87 +93,86 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     //Login
     final loginbtn = Container(
-
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
         color: const Color(0xD91130CE),
         child: MaterialButton(
           padding: const EdgeInsets.all(10),
-          minWidth: MediaQuery
-              .of(context)
-              .size
-              .width,
+          minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             //go to the HomeScreen
             signIn(context, emailController.text, passwordController.text);
           },
-          child: Text("login", style: Styles.textStyle1.copyWith(
-              color: Colors.white, fontSize: 17),),
+          child: Text(
+            "login",
+            style:
+                Styles.textStyle1.copyWith(color: Colors.white, fontSize: 17),
+          ),
         ),
       ),
     );
     return Scaffold(
-        backgroundColor:Styles.primaryColor,
+      backgroundColor: Styles.primaryColor,
       body: Center(
         child: SingleChildScrollView(
           child: Container(
             child: Padding(
               padding: EdgeInsets.all(10.0),
               child: Form(
-                key: _formKey,
+                  key: _formKey,
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //App logo
-                  SizedBox(
-                    height: 120,
-                    child: Text("App Logo",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                    ),
-                  ),
-
-                 const Gap(5),
-                  emailfield,
-                  const Gap(17),
-                  passwordfield,
-                  const Gap(30),
-                  loginbtn,
-                  const  Gap(10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      //App logo
+                      SizedBox(
+                        height: 120,
+                        child: Text(
+                          "App Logo",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
 
-                      const Text("Don`t have account?",style: TextStyle(color: Colors.white),),
-                      // Gap(AppLayout.getHeight(3)),
-                      const Gap(6),
-                      GestureDetector(
-
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) =>
-                              const SignInScreen()));
-                        },
-
-                        child: Text("SignUp",
-                          style: Styles.ticketTextStyle1.copyWith(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),),
+                      const Gap(5),
+                      emailfield,
+                      const Gap(17),
+                      passwordfield,
+                      const Gap(30),
+                      loginbtn,
+                      const Gap(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Don`t have account?",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          // Gap(AppLayout.getHeight(3)),
+                          const Gap(6),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SignInScreen()));
+                            },
+                            child: Text(
+                              "SignUp",
+                              style: Styles.ticketTextStyle1.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
                       )
                     ],
-                  )
-
-
-
-                ],
-              )
-
-              ),
+                  )),
             ),
           ),
         ),
@@ -183,17 +180,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void signIn(BuildContext context, String email, String password) async{
+  void signIn(BuildContext context, String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
-            .then((uid) =>
-        {
-          Fluttertoast.showToast(msg: "Login Successful"),
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) =>  BottomNavBar())),
-        });
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: "Login Successful"),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const BottomNavBar())),
+                });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
