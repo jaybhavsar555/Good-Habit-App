@@ -26,19 +26,17 @@ class TaskService {
   Future<TaskModel?> readTask(String taskId) async {
     User? user = _firebaseAuth.currentUser!;
     print("uid:${user.uid}");
-    if (user != null) {
-      DocumentSnapshot doc = await _firestore
-          .collection('users')
-          .doc(user.uid)
-          .collection('task')
-          .doc(taskId)
-          .get();
+    DocumentSnapshot doc = await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .collection('task')
+        .doc(taskId)
+        .get();
 
-      if (doc.exists) {
-        return TaskModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
-      }
+    if (doc.exists) {
+      return TaskModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
     }
-    return null;
+      return null;
   }
 
   //read all the tasks and return as list
