@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
-import 'package:good_habit_app/model/task_model.dart';
-import 'package:good_habit_app/screens/task_form_screen.dart';
+import 'package:good_habit_app/model/habit_model.dart';
+import 'package:good_habit_app/screens/habit_form_screen.dart';
 import 'package:provider/provider.dart';
-import '../service/task_service.dart';
+import '../service/habit_service.dart';
 import '../utils/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TaskService _taskService = TaskService();
+  final HabitService _taskService = HabitService();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TaskFormScreen()));
+                                  builder: (context) => HabitFormScreen()));
                         },
                         icon: Icon(Icons.add)),
                   ),
@@ -121,10 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Gap(40),
               Text("List of Habits"),
 
-              StreamProvider<List<TaskModel>>.value(
+              StreamProvider<List<HabitModel>>.value(
                 value: _taskService.getTasks(),
                 initialData: [],
-                child: Consumer<List<TaskModel>>(
+                child: Consumer<List<HabitModel>>(
                   builder: (context, tasks, child) {
                     if (tasks.isEmpty) {
                       return Center(child: Text('No tasks found'));
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           final task = tasks[index];
                           return ListTile(
                             title:
-                                Text(task.taskTitle?.toString() ?? 'No title'),
+                                Text(task.habitTitle?.toString() ?? 'No title'),
                             trailing: IconButton(
                               icon: Icon(Icons.note_add),
                               onPressed: () {

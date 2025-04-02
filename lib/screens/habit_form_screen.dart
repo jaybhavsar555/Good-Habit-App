@@ -2,22 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:good_habit_app/model/task_model.dart';
+import 'package:good_habit_app/model/habit_model.dart';
 
-import '../service/task_service.dart';
+import '../service/habit_service.dart';
 import '../utils/app_styles.dart';
 
-class TaskFormScreen extends StatefulWidget {
-  const TaskFormScreen({super.key});
+class HabitFormScreen extends StatefulWidget {
+  const HabitFormScreen({super.key});
 
   @override
-  State<TaskFormScreen> createState() => _TaskFormScreenState();
+  State<HabitFormScreen> createState() => _HabitFormScreenState();
 }
 
-class _TaskFormScreenState extends State<TaskFormScreen> {
+class _HabitFormScreenState extends State<HabitFormScreen> {
   final _formKey = GlobalKey<FormState>();
   late User _currentUser;
-  final TaskService _taskService = TaskService();
+  final HabitService _taskService = HabitService();
   String? _taskTitle;
   String? _periodForTaskCompletion;
   String? _goal;
@@ -47,25 +47,25 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       backgroundColor: Styles.bgColor,
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10.0),
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Gap(30),
+                const Gap(30),
                 //task title
                 const Text("Create your task ",
                     style: TextStyle(color: Colors.white)),
-                Gap(7),
+                const Gap(7),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Task Title'),
                   onSaved: (value) => _taskTitle = value,
                   validator: (value) =>
                       value!.isEmpty ? 'Please enter a task title' : null,
                 ),
-                Gap(7),
+                const Gap(7),
                 //period of time for Single Completion is measuerd over.
                 const Text(
                   "Period of time for Single Completion is measuerd over.",
@@ -73,7 +73,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                 ),
                 DropdownButtonFormField<String>(
                   decoration:
-                      InputDecoration(labelText: '', hintText: "Select"),
+                      const InputDecoration(labelText: '', hintText: "Select"),
                   items: _periodOptions.map((String period) {
                     return DropdownMenuItem<String>(
                       value: period,
@@ -85,22 +85,22 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                   validator: (value) =>
                       value == null ? 'Please select a period' : null,
                 ),
-                Gap(7),
+                const Gap(7),
                 //Goal
-                Text("Goal", style: TextStyle(color: Colors.white)),
+                const Text("Goal", style: TextStyle(color: Colors.white)),
 
                 TextFormField(
-                  decoration: InputDecoration(labelText: ''),
+                  decoration: const InputDecoration(labelText: ''),
                   onSaved: (value) => _goal = value,
                   validator: (value) =>
                       value!.isEmpty ? 'Please enter a goal' : null,
                 ),
 
                 //task days
-                Text("Task Days", style: TextStyle(color: Colors.white)),
+                const Text("Task Days", style: TextStyle(color: Colors.white)),
                 DropdownButtonFormField<String>(
                   decoration:
-                      InputDecoration(labelText: 'Task Days to Perform'),
+                      const InputDecoration(labelText: 'Task Days to Perform'),
                   items: _daysOptions.map((String day) {
                     return DropdownMenuItem<String>(
                       value: day,
@@ -115,7 +115,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
 
                 ElevatedButton(
                   onPressed: () => _saveTask(),
-                  child: Text('Save Task'),
+                  child: const Text('Save Task'),
                 ),
               ],
             ),
@@ -129,11 +129,11 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      TaskModel taskModel = TaskModel(
-        taskTitle: _taskTitle,
-        periodForTaskCompletion: _periodForTaskCompletion,
+      HabitModel taskModel = HabitModel(
+        habitTitle: _taskTitle,
+        periodForHabitCompletion: _periodForTaskCompletion,
         goal: _goal,
-        taskDaysToPerform: _taskDaysToPerform,
+        habitDaysToPerform: _taskDaysToPerform,
       );
       await _taskService.createTask(taskModel);
       Navigator.pop(context);

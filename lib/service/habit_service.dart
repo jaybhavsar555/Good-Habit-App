@@ -1,46 +1,46 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:good_habit_app/model/task_model.dart';
+import 'package:good_habit_app/model/habit_model.dart';
 
-/** TaskService: It consist of the logic that use for TaskModel
+/** HabitService: It consist of the logic that use for HabitModel
  *  it perform the basic CRUD operation on the Task Document
  * **/
 
-class TaskService {
+class HabitService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   //future fn to create
-  Future<void> createTask(TaskModel task) async {
+  Future<void> createTask(HabitModel task) async {
     User? user = _firebaseAuth.currentUser;
     if (user != null) {
       await _firestore
           .collection('users')
           .doc(user.uid)
-          .collection('task')
+          .collection('habit')
           .add(task.toMap());
     }
   }
 
   //read the specific task
-  Future<TaskModel?> readTask(String taskId) async {
+  Future<HabitModel?> readTask(String taskId) async {
     User? user = _firebaseAuth.currentUser!;
     print("uid:${user.uid}");
     DocumentSnapshot doc = await _firestore
         .collection('users')
         .doc(user.uid)
-        .collection('task')
+        .collection('habit')
         .doc(taskId)
         .get();
 
     if (doc.exists) {
-      return TaskModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
+      return HabitModel.fromMap(doc.data() as Map<String, dynamic>, doc.id);
     }
-      return null;
+    return null;
   }
 
   //read all the tasks and return as list
-  Stream<List<TaskModel>> getTasks() {
+  Stream<List<HabitModel>> getTasks() {
     User? user = _firebaseAuth.currentUser;
     print(user?.email);
     print("uid:${user?.uid}");
@@ -65,13 +65,13 @@ class TaskService {
       return _firestore
           .collection('users')
           .doc(user.uid)
-          .collection('task')
+          .collection('habit')
           .snapshots()
           .map((snapshot) {
         print("Snapshot received: ${snapshot.docs.length} documents found");
         return snapshot.docs.map((doc) {
           print("Document data: ${doc.data()}");
-          return TaskModel.fromMap(doc.data(), doc.id);
+          return HabitModel.fromMap(doc.data(), doc.id);
         }).toList();
       });
     } else {
