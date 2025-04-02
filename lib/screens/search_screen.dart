@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_styles.dart';
+import '../utils/constants/app_styles.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

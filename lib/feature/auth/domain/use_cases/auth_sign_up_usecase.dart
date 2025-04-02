@@ -1,17 +1,20 @@
+import 'package:good_habit_app/feature/auth/domain/entities/user_entity.dart';
+
 import '../repositories/auth_repository.dart';
 
 class SignUpUseCase {
-  final AuthRepository repository;
+  final AuthRepository authRepository;
 
-  SignUpUseCase(this.repository);
+  SignUpUseCase(this.authRepository);
 
-  Future<void> call(
+  Future<UserEntity> execute(
     String email,
     String password,
     String username,
     String gender,
     String dateOfBirth,
   ) {
-    return repository.signUp(email, password, username, gender, dateOfBirth);
+    return authRepository.signUp(
+        email, password, username, gender, dateOfBirth);
   }
 }

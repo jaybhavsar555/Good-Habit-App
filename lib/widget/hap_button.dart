@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:good_habit_app/widget/hap_text.dart';
 
 import '../utils/constants/app_styles.dart';
 
-class Cmnbutton extends StatelessWidget {
-  const Cmnbutton(
+class HapButton extends StatelessWidget {
+  const HapButton(
       {super.key,
       this.width,
-      this.height,
-      this.fontSize,
+      this.height = 48,
       this.bgColor,
-      required this.textColor,
-      required this.borderColor,
+      this.borderColor = Colors.transparent,
       this.borderRadius,
+      required this.onClick,
       required this.msg,
-      required this.fontWeight,
-      required this.fontStyle,
-      required this.useRiveWidget,
-      this.riveChild,
-      required this.onClick});
+      this.textColor = Colors.white,
+      this.fontStyle = FontStyle.normal,
+      this.fontWeight = FontWeight.w500,
+      this.fontSize = 18,
+      this.useRiveWidget = false,
+      this.riveChild});
 
   final double? width, height;
   final double? fontSize;
@@ -39,7 +42,7 @@ class Cmnbutton extends StatelessWidget {
         width: width?.w,
         height: height!.h,
         decoration: BoxDecoration(
-          color: bgColor ?? Styles.primaryColor,
+          color: bgColor ?? Styles.btnColor,
           borderRadius:
               borderRadius ?? const BorderRadius.all(Radius.circular(10)),
           border: Border.all(color: borderColor),
@@ -47,7 +50,7 @@ class Cmnbutton extends StatelessWidget {
         alignment: Alignment.center,
         child: useRiveWidget
             ? riveChild
-            : NymText(
+            : HapText(
                 msg: msg,
                 fontSize: fontSize,
                 fontWeight: fontWeight,

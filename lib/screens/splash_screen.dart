@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:good_habit_app/screens/sign_up_screen.dart';
 
-import '../utils/app_styles.dart';
+import '../feature/auth/presentation/pages/sign_in_page.dart';
+import '../utils/constants/app_styles.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -15,7 +16,7 @@ class SplashScreen extends StatelessWidget {
         body: AnimatedSplashScreen(
           splash: Icons.app_blocking,
           duration: 1500,
-          nextScreen: SignUpScreen(),
+          nextScreen: const SignInPage(),
           backgroundColor: Styles.bgColor,
           splashTransition: SplashTransition.scaleTransition,
         ));

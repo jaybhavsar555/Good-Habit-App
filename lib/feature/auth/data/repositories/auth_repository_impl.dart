@@ -9,24 +9,10 @@ import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthService authService;
-
-  AuthRepositoryImpl({required this.authService});
-
+  late final AuthService authService;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // @override
-  // Future<Either<Failure, UserEntity>> signIn(
-  //     String email, String password) async {
-  //   try {
-  //     final user =
-  //         await authService.signInWithEmailAndPassword(email, password);
-  //     return Right(user);
-  //   } catch (e) {
-  //     return Left(Failure(e.toString()));
-  //   }
-  // }
   @override
   Future<UserModel> signIn(
     String email,

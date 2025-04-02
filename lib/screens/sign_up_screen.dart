@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:good_habit_app/screens/bottom_bar.dart';
 import 'package:good_habit_app/screens/sign_in_screen.dart';
 
-import '../utils/app_styles.dart';
+import '../utils/constants/app_styles.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -112,6 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+
     return Scaffold(
       backgroundColor: Styles.primaryColor,
       body: Center(

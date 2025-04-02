@@ -6,7 +6,7 @@ import 'package:good_habit_app/model/task_model.dart';
 import 'package:good_habit_app/screens/task_form_screen.dart';
 import 'package:provider/provider.dart';
 import '../service/task_service.dart';
-import '../utils/app_styles.dart';
+import '../utils/constants/app_styles.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

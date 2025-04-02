@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:good_habit_app/screens/sign_up_screen.dart';
-import 'package:good_habit_app/utils/app_styles.dart';
+import 'package:good_habit_app/utils/constants/app_styles.dart';
 import 'package:intl/intl.dart';
 
 import '../model/user_model.dart';
@@ -19,21 +19,20 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   //global key that uniquely identifies the form widget and allows to validate the form
-  final _formkey= GlobalKey<FormState>();
+  final _formkey = GlobalKey<FormState>();
 
   //Firebase auth obj
   final _auth = FirebaseAuth.instance;
 
   //TextFormFieldController
-  final TextEditingController usernameController=TextEditingController();
-  final TextEditingController emailController=TextEditingController();
-  final TextEditingController passwordController=TextEditingController();
-  final TextEditingController cnfpasswordController=TextEditingController();
-  final TextEditingController ageController=TextEditingController();
-  final TextEditingController dateOfBirthController=TextEditingController();
-  final TextEditingController genderController=TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController cnfpasswordController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController dateOfBirthController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
 
   var gender;
 
@@ -41,19 +40,16 @@ class _SignInScreenState extends State<SignInScreen> {
 
   // late final List<String> gender=["Male","Female","other"];
 
-
-
-
   @override
   Widget build(BuildContext context) {
     //username Form Fields
-    final TextFormField usernameField=TextFormField(
+    final TextFormField usernameField = TextFormField(
       autofocus: false,
       controller: usernameController,
       keyboardType: TextInputType.name,
-      validator: (value){
-        RegExp regExp=RegExp(r'^.{3,}$');
-        if(value!.isEmpty){
+      validator: (value) {
+        RegExp regExp = RegExp(r'^.{3,}$');
+        if (value!.isEmpty) {
           return ("FirstName cannot be empty!");
         }
         // if (!regex.hasMatch(value)) {
@@ -61,26 +57,22 @@ class _SignInScreenState extends State<SignInScreen> {
         // }
         return null;
       },
-      onSaved: (value){
-        usernameController.text=value!;
+      onSaved: (value) {
+        usernameController.text = value!;
       },
-
-
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.account_circle),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Username",
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        )
-      ),
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Username",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          )),
     );
 
     //email field
-    final TextFormField emailfield= TextFormField(
+    final TextFormField emailfield = TextFormField(
       autofocus: false,
-
       controller: emailController,
       keyboardType: TextInputType.name,
       validator: (value) {
@@ -88,17 +80,16 @@ class _SignInScreenState extends State<SignInScreen> {
           return ("Please Enter Your Email");
         }
         // reg expression for email validation
-        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-            .hasMatch(value)) {
+        if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]").hasMatch(value)) {
           return ("Please Enter a valid email");
         }
         return null;
       },
-      onSaved: (value){
-        emailController.text=value!;
+      onSaved: (value) {
+        emailController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         prefixIcon: const Icon(Icons.email),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Email",
@@ -108,9 +99,8 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
 
-
     //password field
-    final TextFormField passwordfield= TextFormField(
+    final TextFormField passwordfield = TextFormField(
       autofocus: false,
       obscureText: true,
       controller: passwordController,
@@ -124,11 +114,11 @@ class _SignInScreenState extends State<SignInScreen> {
         }
         return null;
       },
-      onSaved: (value){
-        passwordController.text=value!;
+      onSaved: (value) {
+        passwordController.text = value!;
       },
       textInputAction: TextInputAction.next,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         prefixIcon: const Icon(Icons.key),
         contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "password",
@@ -139,23 +129,23 @@ class _SignInScreenState extends State<SignInScreen> {
     );
 
     //cnf password field
-    final TextFormField cnfpasswordfield= TextFormField(
+    final TextFormField cnfpasswordfield = TextFormField(
       autofocus: false,
       obscureText: true,
       controller: cnfpasswordController,
-      validator: (value){
-        if(cnfpasswordController.text != passwordController.text){
+      validator: (value) {
+        if (cnfpasswordController.text != passwordController.text) {
           return "Password dont match";
         }
         return null;
       },
-      onSaved: (value){
-        cnfpasswordController.text=value!;
+      onSaved: (value) {
+        cnfpasswordController.text = value!;
       },
       textInputAction: TextInputAction.done,
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
         prefixIcon: const Icon(Icons.key),
-        contentPadding:  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "Confirm Password",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -163,11 +153,11 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
 
-    final TextFormField dateofbirthformfield=TextFormField(
-    controller: dateOfBirthController,
+    final TextFormField dateofbirthformfield = TextFormField(
+      controller: dateOfBirthController,
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.calendar_month),
-        contentPadding:  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         hintText: "DOB",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -179,47 +169,49 @@ class _SignInScreenState extends State<SignInScreen> {
         }
         return null;
       },
-      onTap: ()=>onTapFunction(context:context),
+      onTap: () => onTapFunction(context: context),
     );
 
 //registration btn
-    final signup=Container(
-
+    final signup = Container(
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(30),
         color: const Color(0xD91130CE),
         child: MaterialButton(
-
           padding: const EdgeInsets.all(10),
           minWidth: MediaQuery.of(context).size.width,
-          onPressed: (){
+          onPressed: () {
             signUp(emailController.text, passwordController.text);
           },
-          child: Text("SignUp",style: Styles.textStyle1.copyWith(color: Colors.white ,fontSize: 17),),
+          child: Text(
+            "SignUp",
+            style:
+                Styles.textStyle1.copyWith(color: Colors.white, fontSize: 17),
+          ),
         ),
       ),
     );
 
     return Scaffold(
-      backgroundColor:Styles.primaryColor,
-
-      body:  Center(
+      backgroundColor: Styles.primaryColor,
+      body: Center(
         child: SingleChildScrollView(
           child: Container(
             child: Padding(
               padding: EdgeInsets.all(10.0),
               //contains App logo and Form
               child: Form(
-                key: _formkey,
+                  key: _formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       //App logo
-                      SizedBox(
+                      const SizedBox(
                         height: 120,
-                        child: Text("App Logo",
+                        child: Text(
+                          "App Logo",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
@@ -239,133 +231,125 @@ class _SignInScreenState extends State<SignInScreen> {
                       Row(
                         children: [
                           //DOB form field
-                          SizedBox(
-                              width: 170.0,
-                              child: dateofbirthformfield
-                          ),
+                          SizedBox(width: 170.0, child: dateofbirthformfield),
                           const Gap(12),
                           //gender selection
                           SizedBox(
-
                             width: 170,
                             child: Theme(
-                              data: Theme.of(context).copyWith(canvasColor: Colors.black),
-                              child:DropdownButtonFormField(
+                              data: Theme.of(context)
+                                  .copyWith(canvasColor: Colors.black),
+                              child: DropdownButtonFormField(
                                 autofocus: false,
-                                  isExpanded: true,
-                                  hint: Text("Gender"),
-                                  items: const [
-                                    DropdownMenuItem<String>(
-                                      child: Text("Male"),
-                                      value: "Male",
-                                    ),
-                                    DropdownMenuItem<String>(
-                                      value: "Female",
-                                      child: Text('Female'),
-                                    ),
-                                    DropdownMenuItem<String>(
-                                      value: "Other",
-                                      child: Text('Other'),
-                                    ),
-
-                                  ],
-                                  onChanged:(value) async{
-                                    setState(() {
-                                      genderController.text=value.toString();
-                                    });
-                                  },
-                                onSaved: (value){
-                                  genderController.text=value.toString();
-                                },
-                                  value: gender,
-                                  validator: (value) => value == null
-                                      ? 'Please fill in your gender': null,
-
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.person),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      contentPadding: EdgeInsets.fromLTRB(22, 15, 20, 15),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.black),
-
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.black
-                                          )
-                                      )
-
+                                isExpanded: true,
+                                hint: Text("Gender"),
+                                items: const [
+                                  DropdownMenuItem<String>(
+                                    child: Text("Male"),
+                                    value: "Male",
                                   ),
-                                  elevation: 2,
-                                  style: TextStyle(color: Colors.white,fontSize: 20),
-                                  isDense: true,
-                                  iconSize: 30.0,
-                                  iconEnabledColor: Colors.black,
-                                ),
+                                  DropdownMenuItem<String>(
+                                    value: "Female",
+                                    child: Text('Female'),
+                                  ),
+                                  DropdownMenuItem<String>(
+                                    value: "Other",
+                                    child: Text('Other'),
+                                  ),
+                                ],
+                                onChanged: (value) async {
+                                  setState(() {
+                                    genderController.text = value.toString();
+                                  });
+                                },
+                                onSaved: (value) {
+                                  genderController.text = value.toString();
+                                },
+                                value: gender,
+                                validator: (value) => value == null
+                                    ? 'Please fill in your gender'
+                                    : null,
+                                decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.person),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsets.fromLTRB(22, 15, 20, 15),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.black),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.black))),
+                                elevation: 2,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                                isDense: true,
+                                iconSize: 30.0,
+                                iconEnabledColor: Colors.black,
+                              ),
                             ),
                           ),
                         ],
                       ),
                       const Gap(50),
                       signup,
-
-
                     ],
-                  )
-              ),
+                  )),
             ),
           ),
         ),
       ),
-
     );
   }
 
   //fn to pick date
-  onTapFunction({required BuildContext context}) async{
-    DateTime? pickeDate=await showDatePicker(
-        context: context,
-        firstDate: DateTime(1950),
-        lastDate: DateTime.now(),
-        initialDate: DateTime.now(),
+  onTapFunction({required BuildContext context}) async {
+    DateTime? pickeDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1950),
+      lastDate: DateTime.now(),
+      initialDate: DateTime.now(),
     );
-    if(pickeDate==null) return;
-    dateOfBirthController.text=DateFormat('yyyy-MM-dd').format(pickeDate);
+    if (pickeDate == null) return;
+    dateOfBirthController.text = DateFormat('yyyy-MM-dd').format(pickeDate);
   }
-
 
   void signUp(String email, String password) async {
     if (_formkey.currentState!.validate()) {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {
-        postDetailToFirestore()
-      })
-          .catchError((e){
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailToFirestore()})
+          .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
     }
-
   }
 
-  void postDetailToFirestore() async{
-    FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
+  void postDetailToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
-    UserModel userModel=UserModel();
-    userModel.email=user!.email;
-    userModel.uid=user.uid;
-    userModel.username= usernameController.text;
-    userModel.password=passwordController.text;
-    userModel.gender=genderController.text;
-    userModel.dateOfBirth=dateOfBirthController.text;
+    UserModel userModel = UserModel();
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.username = usernameController.text;
+    userModel.password = passwordController.text;
+    userModel.gender = genderController.text;
+    userModel.dateOfBirth = dateOfBirthController.text;
 
     //convert the password to the hashable using sha256//
 
-    await firebaseFirestore.collection("users").doc(user.uid).set(userModel.toMap());
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
 
     Fluttertoast.showToast(msg: "Account Created Successfully!!");
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignUpScreen()),
-            (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const SignUpScreen()),
+        (route) => false);
   }
-  }
+}

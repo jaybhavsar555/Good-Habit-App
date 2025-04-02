@@ -5,7 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:good_habit_app/model/task_model.dart';
 
 import '../service/task_service.dart';
-import '../utils/app_styles.dart';
+import '../utils/constants/app_styles.dart';
 
 class TaskFormScreen extends StatefulWidget {
   const TaskFormScreen({super.key});
